@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Countdown 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for Cute Styling -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffe5ec 0%, #f9c6d5 100%);
+      font-family: 'Quicksand', cursive, sans-serif;
+      text-align: center;
+      color: #4b2344;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      margin: 40px auto;
+      max-width: 600px;
+      background: #fff6fbcc;
+      border-radius: 24px;
+      box-shadow: 0 0 16px #ffc4e1;
+      padding: 30px 20px 20px 20px;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.8rem;
+      margin-bottom: 6px;
+      color: #d72660;
+    }
+    .countdown {
+      font-size: 2rem;
+      margin: 24px 0 12px 0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .countdown span {
+      margin: 0 13px;
+      background: #fff9fb;
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0 2px 8px #ffd1ed66;
+      font-weight: bold;
+      color: #b04e77;
+    }
+    .music-btn {
+      background: #fff4e6;
+      border: 2px solid #d72660;
+      color: #d72660;
+      border-radius: 50px;
+      padding: 12px 32px;
+      font-size: 1.2rem;
+      font-family: 'Pacifico', cursive;
+      margin: 18px 0 12px 0;
+      cursor: pointer;
+      box-shadow: 0 4px 12px #ffc4e1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .music-btn:hover {
+      background: #ffd1ed;
+      color: #fff;
+    }
+    .cat-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 30px 0 15px 0;
+    }
+    .cat-img {
+      width: 72px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      border-radius: 50%;
+      border: 2px solid #f7b2dc;
+      box-shadow: 0 2px 12px #ffd1edcc;
+    }
+    .cat-img:hover {
+      transform: scale(1.13) rotate(-6deg);
+      border-color: #d72660;
+    }
+    .cat-message {
+      font-size: 1.1rem;
+      margin: 10px auto 0 auto;
+      min-height: 30px;
+      color: #b04e77;
+      font-family: 'Quicksand', cursive;
+      background: #fff0fa;
+      border-radius: 8px;
+      padding: 6px 16px;
+      display: inline-block;
+      box-shadow: 0 1px 5px #f7b2dc77;
+    }
+    .decorations {
+      margin: 26px 0 18px 0;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+    .decor-img {
+      height: 60px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px #ffd1ed88;
+    }
+    .teddy-row {
+      margin: 12px 0 24px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .teddy-img {
+      height: 68px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px #ffd1ed88;
+    }
+    .wishes {
+      font-size: 1.45rem;
+      margin: 20px 0 10px 0;
+      font-family: 'Pacifico', cursive;
+      color: #d72660;
+      background: #fff0fa;
+      border-radius: 16px;
+      padding: 20px 16px;
+      box-shadow: 0 2px 18px #ffd1ed77;
+    }
+    @media (max-width: 600px) {
+      .cat-row, .teddy-row, .decorations {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .container {
+        padding: 12px 4px 14px 4px;
+        margin: 14px 3px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Happy Birthday Countdown!</h1>
+    <div class="countdown" id="countdown">
+      <span id="days">00</span> days
+      <span id="hours">00</span> hrs
+      <span id="minutes">00</span> min
+      <span id="seconds">00</span> sec
+    </div>
+    <button class="music-btn" id="musicBtn">Play Birthday Music 🎶</button>
+    <audio id="birthdayMusic" loop>
+      <source src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa7c83.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <div class="decorations">
+      <img class="decor-img" src="https://pngimg.com/d/balloons_PNG4953.png" alt="Balloons">
+      <img class="decor-img" src="https://pngimg.com/d/birthday_cake_PNG9641.png" alt="Cake">
+      <img class="decor-img" src="https://pngimg.com/d/party_hat_PNG61.png" alt="Party Hat">
+    </div>
+    <div class="cat-row">
+      <img class="cat-img" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" data-message="You're purr-fect! 🐾" alt="Cat 1">
+      <img class="cat-img" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" data-message="I love you meow and fur-ever! 💞" alt="Cat 2">
+      <img class="cat-img" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" data-message="Hope your day is pawsome! 😻" alt="Cat 3">
+    </div>
+    <div class="cat-message" id="catMessage">Click a cat for a sweet message!</div>
+    <div class="teddy-row">
+      <img class="teddy-img" src="https://pngimg.com/d/teddy_bear_PNG41.png" alt="Teddy 1">
+      <img class="teddy-img" src="https://pngimg.com/d/teddy_bear_PNG105.png" alt="Teddy 2">
+      <img class="teddy-img" src="https://pngimg.com/d/teddy_bear_PNG107.png" alt="Teddy 3">
+    </div>
+    <div class="wishes">
+      🎉 Wishing you the sweetest, happiest, most magical birthday ever! <br>
+      May your year be filled with love, joy, cuddles, and endless smiles. <br>
+      I love you more than all the stars and sprinkles! 💖🐻🎂
+    </div>
+  </div>
+  <script>
+    // Countdown timer logic
+    function updateCountdown() {
+      // Malaysia time is UTC+8
+      const targetDate = new Date(Date.UTC(2025, 8, 13, 16, 0, 0)); // 2025-09-14 00:00:00 MYT == 2025-09-13 16:00:00 UTC
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "<span>00</span> days <span>00</span> hrs <span>00</span> min <span>00</span> sec";
+        document.querySelector('.wishes').innerHTML = "🎉 It's your Birthday! Happy Birthday, love! 🎉";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = String(days).padStart(2, '0');
+      document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Music controls
+    const musicBtn = document.getElementById('musicBtn');
+    const music = document.getElementById('birthdayMusic');
+    let isPlaying = false;
+    musicBtn.addEventListener('click', function () {
+      if (!isPlaying) {
+        music.play();
+        musicBtn.textContent = "Pause Birthday Music ⏸️";
+      } else {
+        music.pause();
+        musicBtn.textContent = "Play Birthday Music 🎶";
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Animated cats with messages
+    const catImgs = document.querySelectorAll('.cat-img');
+    const catMessage = document.getElementById('catMessage');
+    catImgs.forEach(cat => {
+      cat.addEventListener('click', function() {
+        const msg = cat.getAttribute('data-message');
+        catMessage.textContent = msg;
+        catMessage.style.animation = "none";
+        void catMessage.offsetWidth; // trigger reflow
+        catMessage.style.animation = "popIn 0.4s";
+      });
+    });
+
+    // Animations for cat message
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes popIn {
+        0% { transform: scale(0.8); opacity: 0.2; }
+        70% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
