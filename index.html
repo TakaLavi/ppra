@@ -2,36 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Birthday Countdown!</title>
+  <title>Bethany's Birthday!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts for Cute Styling -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
-    body {
-      background: linear-gradient(135deg, #e1c6f9 0%, #ffe6fa 100%);
-      font-family: 'Quicksand', cursive, sans-serif;
-      text-align: center;
-      color: #4b2344;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+    :root {
+      --main-bg: linear-gradient(135deg, #e1c6f9 0%, #ffe6fa 100%);
+      --primary: #a259c1;
+      --accent: #f85e89;
+      --lilac: #cda4de;
+      --strawberry: #fc95b8;
+      --snow: #e3f3fd;
+      --cat-shadow: 0 2px 12px #c471edcc;
+      --nav-h: 60px;
     }
-    .container {
-      margin: 40px auto;
-      max-width: 650px;
+    html, body {
+      margin: 0; padding: 0; min-height: 100vh;
+      font-family: 'Quicksand', cursive, sans-serif;
+      background: var(--main-bg);
+      color: #4b2344;
+    }
+    body {
+      padding-top: var(--nav-h);
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: #fff9fdcc;
+      z-index: 100;
+      box-shadow: 0 2px 12px #cda4de55;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      font-size: 1.13rem;
+    }
+    nav .nav-link {
+      text-decoration: none;
+      color: var(--primary);
+      font-family: 'Pacifico', cursive;
+      padding: 8px 18px;
+      border-radius: 18px;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+    nav .nav-link.active, nav .nav-link:hover {
+      background: var(--lilac);
+      color: #fff;
+    }
+    .page {
+      display: none;
+      max-width: 700px;
+      margin: 0 auto;
       background: #f9f3fdcc;
       border-radius: 28px;
-      box-shadow: 0 0 18px #cda4de;
+      box-shadow: 0 0 18px var(--lilac);
       padding: 36px 16px 20px 16px;
+      min-height: 60vh;
+      margin-bottom: 40px;
     }
-    h1 {
+    .page.active { display: block; }
+    h1, h2 {
       font-family: 'Pacifico', cursive;
-      font-size: 2.9rem;
-      margin-bottom: 8px;
-      color: #a259c1;
-      letter-spacing: 2px;
-      text-shadow: 0 1px 0 #fff, 0 2px 10px #d9a7ff88;
+      color: var(--primary);
     }
+    /* Home page styles */
     .countdown {
       font-size: 2.1rem;
       margin: 22px 0 12px 0;
@@ -47,19 +83,19 @@
       padding: 12px 18px;
       box-shadow: 0 2px 10px #c471ed55;
       font-weight: bold;
-      color: #a259c1;
+      color: var(--primary);
     }
     .music-btn {
       background: #fff4e6;
-      border: 2px solid #a259c1;
-      color: #a259c1;
+      border: 2px solid var(--primary);
+      color: var(--primary);
       border-radius: 50px;
       padding: 12px 32px;
       font-size: 1.2rem;
       font-family: 'Pacifico', cursive;
       margin: 18px 0 12px 0;
       cursor: pointer;
-      box-shadow: 0 4px 12px #e1c6f9;
+      box-shadow: 0 4px 12px var(--lilac);
       transition: background 0.2s, color 0.2s;
       position: relative;
     }
@@ -69,122 +105,144 @@
       font-size: 1.3rem;
     }
     .music-btn:hover {
-      background: #e1c6f9;
+      background: var(--lilac);
       color: #fff;
-    }
-    .decorations {
-      margin: 20px 0 10px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-    }
-    .decor-img {
-      height: 56px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px #c471ed55;
-      background: #fff;
-      padding: 2px;
-    }
-    .strawberry {
-      height: 42px;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px #fc95b8aa;
-      background: #fff0f6;
-      padding: 2px;
-    }
-    .snowflake {
-      height: 44px;
-      margin: 0 2px;
-      opacity: 0.7;
-    }
-    .flower {
-      height: 48px;
-      margin: 0 3px;
-      filter: drop-shadow(0 3px 8px #cda4de99);
     }
     .cat-row {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 26px;
-      margin: 34px 0 10px 0;
+      gap: 22px;
+      margin: 24px 0 10px 0;
     }
     .cat-img {
-      width: 76px;
+      width: 74px; height: 74px;
       cursor: pointer;
       transition: transform 0.2s;
       border-radius: 50%;
-      border: 2px solid #a259c1;
-      box-shadow: 0 2px 12px #c471edcc;
+      border: 2px solid var(--primary);
+      box-shadow: var(--cat-shadow);
       background: #fff;
+      object-fit: cover;
     }
     .cat-img:hover {
-      transform: scale(1.13) rotate(-6deg);
-      border-color: #f85e89;
+      transform: scale(1.15) rotate(-7deg);
+      border-color: var(--accent);
     }
     .cat-message {
-      font-size: 1.07rem;
-      margin: 10px auto 0 auto;
-      min-height: 30px;
+      font-size: 1.13rem;
+      margin: 14px auto 0 auto;
+      min-height: 36px;
       color: #b04e77;
-      font-family: 'Quicksand', cursive;
       background: #f7e7ff;
       border-radius: 8px;
-      padding: 6px 16px;
+      padding: 8px 18px;
       display: inline-block;
-      box-shadow: 0 1px 5px #cda4de77;
+      box-shadow: 0 1px 5px var(--lilac);
     }
-    .teddy-row {
-      margin: 8px 0 18px 0;
+    /* Cat rain */
+    .cat-rain {
+      position: fixed;
+      pointer-events: none;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      z-index: 1000;
+      overflow: visible;
+    }
+    .cat-rain img {
+      position: absolute;
+      width: 38px; height: 38px;
+      pointer-events: none;
+      opacity: 0.88;
+      transition: opacity 0.2s;
+      will-change: transform;
+    }
+    /* Confetti */
+    .confetti-piece {
+      position: fixed;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      opacity: 0.82;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    /* Gallery */
+    .gallery-grid {
       display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
       justify-content: center;
-      gap: 16px;
+      margin: 18px 0 0 0;
     }
-    .teddy-img {
-      height: 62px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px #c471ed88;
+    .gallery-item {
       background: #fff;
-      padding: 2px;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px #c471ed33;
+      overflow: hidden;
+      max-width: 150px;
+      text-align: center;
+      padding: 7px;
     }
-    .wishes {
-      font-size: 1.28rem;
-      margin: 18px 0 10px 0;
-      font-family: 'Pacifico', cursive;
-      color: #a259c1;
+    .gallery-item img {
+      width: 120px; height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 1px 5px #cda4de55;
+    }
+    .gallery-caption {
+      font-size: 0.98rem;
+      margin-top: 5px;
+      color: var(--primary);
+    }
+    /* Wishes */
+    .wishes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin: 18px 0;
+      align-items: center;
+    }
+    .wish-card {
       background: #f7e7ff;
       border-radius: 16px;
-      padding: 16px 12px;
-      box-shadow: 0 2px 18px #c471ed55;
-    }
-    .elsa-wish {
-      color: #24a7e5;
+      padding: 13px 22px;
+      box-shadow: 0 2px 8px var(--lilac);
+      font-size: 1.11rem;
+      color: #a259c1;
+      max-width: 420px;
       font-family: 'Pacifico', cursive;
-      background: #e3f3fd;
-      border-radius: 13px;
-      display: inline-block;
-      padding: 10px 18px;
-      margin: 16px auto 10px auto;
-      font-size: 1.12rem;
-      box-shadow: 0 1px 12px #c8e7faaa;
     }
-    /* Drawing pad styles */
+    .compliment-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 8px;
+      font-family: 'Quicksand', cursive;
+      box-shadow: 0 1px 6px var(--lilac);
+      transition: background 0.2s;
+    }
+    .compliment-btn:hover { background: var(--accent); }
+    /* Drawing Pad */
     .drawing-pad-container {
       margin: 34px 0 10px 0;
       background: #e6d4f7;
       border-radius: 16px;
       padding: 14px 8px;
-      box-shadow: 0 2px 12px #cda4de77;
+      box-shadow: 0 2px 12px var(--lilac);
+      text-align: center;
     }
     .drawing-pad-title {
       font-family: 'Pacifico', cursive;
-      color: #a259c1;
+      color: var(--primary);
       font-size: 1.2rem;
       margin-bottom: 5px;
     }
     #drawingPad {
       background: #fff;
-      border: 2px dashed #a259c1;
+      border: 2px dashed var(--primary);
       border-radius: 10px;
       width: 95%;
       max-width: 360px;
@@ -194,37 +252,134 @@
     }
     .drawing-btn {
       margin-top: 8px;
-      background: #a259c1;
+      background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 8px;
       padding: 7px 18px;
       font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 1px 6px #c471ed77;
+      box-shadow: 0 1px 6px var(--lilac);
       font-family: 'Quicksand', cursive;
       transition: background 0.2s;
     }
-    .drawing-btn:hover { background: #f85e89; }
+    .drawing-btn:hover { background: var(--accent); }
+    /* About */
+    .about-content {
+      background: #e3f3fd;
+      border-radius: 18px;
+      padding: 25px 18px;
+      box-shadow: 0 2px 12px #b5dcf4;
+      margin-top: 18px;
+      font-size: 1.16rem;
+      color: #2477a5;
+      font-family: 'Pacifico', cursive;
+      text-align: center;
+    }
+    .facts-list {
+      margin: 18px 0 0 0;
+      text-align: left;
+      color: var(--primary);
+      font-family: 'Quicksand', cursive;
+      font-size: 1.08rem;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Gift */
+    .gift-box {
+      display: inline-block;
+      margin: 20px auto 0 auto;
+      cursor: pointer;
+      position: relative;
+    }
+    .gift-lid, .gift-base {
+      width: 70px;
+      height: 35px;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--primary) 60%, var(--accent) 100%);
+      position: relative;
+    }
+    .gift-lid {
+      top: 0; z-index: 2;
+    }
+    .gift-base {
+      margin-top: -6px;
+      background: linear-gradient(135deg, var(--accent) 50%, var(--primary) 100%);
+      z-index: 1;
+    }
+    .gift-ribbon {
+      width: 70px; height: 8px;
+      background: #fff;
+      border-radius: 4px;
+      position: absolute;
+      top: 14px; left: 0;
+      z-index: 3;
+    }
+    .gift-opened {
+      animation: giftOpen 0.7s forwards;
+    }
+    @keyframes giftOpen {
+      0% { transform: translateY(0) rotate(0deg);}
+      80% { transform: translateY(-45px) rotate(-12deg);}
+      100% { transform: translateY(-45px) rotate(-16deg);}
+    }
+    .gift-message {
+      margin-top: 12px;
+      font-size: 1.11rem;
+      color: var(--accent);
+      font-family: 'Pacifico', cursive;
+      background: #fff9fd;
+      border-radius: 8px;
+      padding: 10px 16px;
+      box-shadow: 0 2px 8px var(--lilac);
+      display: none;
+    }
+    .gift-message.open { display: block; }
+    /* Fireflies */
+    .firefly {
+      position: fixed;
+      border-radius: 50%;
+      background: #fffae8;
+      width: 7px; height: 7px;
+      box-shadow: 0 0 10px 2px #ffe483, 0 0 18px 8px #fff7cc33;
+      opacity: 0.77;
+      pointer-events: none;
+      z-index: 0;
+      animation: firefly-move 12s linear infinite;
+    }
+    @keyframes firefly-move {
+      0% {transform: translateY(0) translateX(0);}
+      100% {transform: translateY(100vh) translateX(50vw);}
+    }
+    /* Responsive */
     @media (max-width: 700px) {
-      .cat-row, .teddy-row, .decorations {
+      .cat-row, .gallery-grid, .wishes-list {
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
       }
-      .container {
-        padding: 12px 2px 14px 2px;
-        margin: 14px 2px;
+      .page {
+        padding: 10px 2px 14px 2px;
+        margin: 10px 2px;
       }
-      #drawingPad {
-        width: 98vw;
-        height: 140px;
-      }
+      #drawingPad { width: 98vw; height: 140px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Happy Birthday, My Love!</h1>
+  <!-- Navigation -->
+  <nav>
+    <a class="nav-link active" data-page="home">Home</a>
+    <a class="nav-link" data-page="gallery">Gallery</a>
+    <a class="nav-link" data-page="wishes">Wishes</a>
+    <a class="nav-link" data-page="drawing">Drawing Pad</a>
+    <a class="nav-link" data-page="about">About Bethany</a>
+  </nav>
+  <!-- Home Page -->
+  <div class="page active" id="page-home">
+    <h1>Happy Birthday, Bethany!</h1>
     <div class="countdown" id="countdown">
       <span id="days">00</span> days
       <span id="hours">00</span> hrs
@@ -236,50 +391,87 @@
       <source src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa7c83.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
-    <div class="decorations">
-      <img class="flower" src="https://pngimg.com/d/lilac_PNG79.png" alt="Lilac Flower">
-      <img class="strawberry" src="https://pngimg.com/d/strawberry_PNG2586.png" alt="Strawberry">
-      <img class="decor-img" src="https://pngimg.com/d/balloons_PNG4953.png" alt="Balloons">
-      <img class="snowflake" src="https://pngimg.com/d/snowflake_PNG7582.png" alt="Snowflake">
-      <img class="flower" src="https://pngimg.com/d/lilac_PNG79.png" alt="Lilac Flower">
-      <img class="strawberry" src="https://pngimg.com/d/strawberry_PNG2586.png" alt="Strawberry">
+    <div class="cat-row" id="catRow">
+      <!-- Cat images will be injected by JS -->
     </div>
-    <div class="cat-row">
-      <img class="cat-img" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" data-message="You're purr-fect! 🐾" alt="Cat 1">
-      <img class="cat-img" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" data-message="I love you meow and fur-ever! 💞" alt="Cat 2">
-      <img class="cat-img" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" data-message="Hope your day is pawsome! 😻" alt="Cat 3">
+    <div class="cat-message" id="catMessage">Click a cat for a sweet message and cat rain!</div>
+    <div id="catRain" class="cat-rain"></div>
+    <!-- Fireflies background -->
+    <div id="fireflies"></div>
+    <div id="confetti"></div>
+    <div class="gift-box" id="giftBox" title="Open me!">
+      <div class="gift-lid"></div>
+      <div class="gift-ribbon"></div>
+      <div class="gift-base"></div>
     </div>
-    <div class="cat-message" id="catMessage">Click a cat for a sweet message!</div>
-    <div class="teddy-row">
-      <img class="teddy-img" src="https://pngimg.com/d/teddy_bear_PNG41.png" alt="Teddy 1">
-      <img class="teddy-img" src="https://pngimg.com/d/teddy_bear_PNG105.png" alt="Teddy 2">
-      <img class="teddy-img" src="https://pngimg.com/d/teddy_bear_PNG107.png" alt="Teddy 3">
+    <div class="gift-message" id="giftMessage"></div>
+  </div>
+  <!-- Gallery Page -->
+  <div class="page" id="page-gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Images injected by JS -->
     </div>
-    <div class="wishes">
-      🎂 Wishing you a magical day filled with music, art, and strawberries! <br>
-      May your year be as beautiful as lilac flowers and your smile as bright as Elsa's snowflakes. <br>
-      I love you to Arendelle and back! 💜🍓❄️
+  </div>
+  <!-- Wishes Page -->
+  <div class="page" id="page-wishes">
+    <h2>Birthday Wishes</h2>
+    <div class="wishes-list" id="wishesList">
+      <!-- Wishes injected by JS -->
     </div>
-    <div class="elsa-wish">
-      “Let it go, let it glow—today is your special day! Happy Birthday from Elsa!”<br>
-      <img src="https://pngimg.com/d/snowflake_PNG7582.png" alt="Snowflake" style="height:22px;vertical-align:middle;">
-    </div>
+    <button class="compliment-btn" id="complimentBtn">Random Compliment</button>
+    <div class="cat-message" id="complimentMsg"></div>
+  </div>
+  <!-- Drawing Pad Page -->
+  <div class="page" id="page-drawing">
+    <h2>Drawing Pad</h2>
     <div class="drawing-pad-container">
-      <div class="drawing-pad-title">🎨 Draw something! (art zone for you)</div>
+      <div class="drawing-pad-title">🎨 Bethany’s Art Pad</div>
       <canvas id="drawingPad"></canvas><br>
       <button class="drawing-btn" onclick="clearDrawing()">Clear</button>
     </div>
   </div>
+  <!-- About Bethany Page -->
+  <div class="page" id="page-about">
+    <h2>About Bethany</h2>
+    <div class="about-content">
+      Bethany is perfect, mine, and pretty!<br>
+      <span style="font-size:1.9rem;">💜</span>
+      <div class="facts-list">
+        <ul>
+          <li>Loves strawberries, lilac flowers, and Elsa’s snowflakes.</li>
+          <li>Has the prettiest smile in the world.</li>
+          <li>Makes every day magical.</li>
+          <li>Her favorite person says: “Bethany is perfect, mine, and pretty.”</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:28px;text-align:center;">P.S.: Find the secret word somewhere on this site! (“STRAT”)</div>
+  </div>
+  <!-- Scripts -->
   <script>
-    // Countdown timer logic
+    // NAVIGATION
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pages = document.querySelectorAll('.page');
+    navLinks.forEach(link => {
+      link.onclick = () => {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        pages.forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + link.dataset.page).classList.add('active');
+        window.scrollTo(0, 0);
+      };
+    });
+
+    // COUNTDOWN
     function updateCountdown() {
-      // Malaysia time is UTC+8
-      const targetDate = new Date(Date.UTC(2025, 8, 13, 16, 0, 0)); // 2025-09-14 00:00:00 MYT == 2025-09-13 16:00:00 UTC
+      const targetDate = new Date(Date.UTC(2025, 8, 13, 16, 0, 0)); // 2025-14-14 00:00:00 MYT == 2025-14-13 16:00:00 UTC
       const now = new Date();
       const diff = targetDate - now;
       if (diff <= 0) {
         document.getElementById("countdown").innerHTML = "<span>00</span> days <span>00</span> hrs <span>00</span> min <span>00</span> sec";
-        document.querySelector('.wishes').innerHTML = "🎉 It's your Birthday! Happy Birthday, my love! 🎉";
+        triggerConfetti();
+        document.getElementById('catMessage').textContent = "🎉 It's your Birthday, Bethany! 🎉";
         return;
       }
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -295,7 +487,112 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Music controls
+    // HOMEPAGE: CATS & CAT RAIN
+    const catImgsData = [
+      {src: "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", quote: "Bethany, you're purr-fect! 🐾"},
+      {src: "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif", quote: "Bethany, I love you meow and fur-ever! 💞"},
+      {src: "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif", quote: "Hope your day is pawsome, Bethany! 😻"},
+      {src: "https://media.giphy.com/media/lJNoBCvQYp7nq/giphy.gif", quote: "You’re the cat’s whiskers, Bethany!"},
+      {src: "https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif", quote: "Paws and relax—it's your day!"},
+      {src: "https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif", quote: "You’re the purr-incess of my heart!"},
+      {src: "https://media.giphy.com/media/6VoDJzfRjJNbG/giphy.gif", quote: "Stay pawsitive, birthday girl!"},
+      {src: "https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif", quote: "Sending you a meowntain of love!"},
+      {src: "https://media.giphy.com/media/5xaOcLwEvFOizxHVyVy/giphy.gif", quote: "Cat-tastic birthday to the prettiest girl!"},
+      {src: "https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif", quote: "A purrfect day for a purrfect Bethany!"},
+    ];
+    function renderCats() {
+      const catRow = document.getElementById('catRow');
+      catRow.innerHTML = '';
+      catImgsData.forEach((cat, idx) => {
+        const img = document.createElement('img');
+        img.src = cat.src;
+        img.alt = "Cat " + (idx+1);
+        img.className = "cat-img";
+        img.setAttribute('tabindex', "0");
+        img.onclick = () => {
+          showCatRain(cat.src);
+          showCatMessage(cat.quote);
+        };
+        img.onkeydown = (e) => { if (e.key === "Enter") img.onclick(); }
+        catRow.appendChild(img);
+      });
+    }
+    renderCats();
+
+    function showCatMessage(msg) {
+      const m = document.getElementById('catMessage');
+      m.textContent = msg;
+      m.style.animation = "none";
+      void m.offsetWidth; // trigger reflow
+      m.style.animation = "popIn 0.5s";
+    }
+
+    // Cat rain
+    function showCatRain(catSrc) {
+      const rain = document.getElementById('catRain');
+      for (let i=0; i<18; i++) {
+        setTimeout(()=>{
+          const img = document.createElement('img');
+          img.src = catSrc;
+          img.style.left = (Math.random()*90)+"vw";
+          img.style.top = "-50px";
+          img.style.opacity = Math.random() * 0.8 + 0.2;
+          rain.appendChild(img);
+          let y = -50;
+          const duration = Math.random()*1000+1800;
+          const interval = setInterval(()=>{
+            y += 6 + Math.random()*4;
+            img.style.top = y+"px";
+            if (y > window.innerHeight+30) {
+              clearInterval(interval);
+              img.remove();
+            }
+          }, duration/50);
+        }, i*100);
+      }
+    }
+
+    // Animate cat message
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes popIn {
+        0% { transform: scale(0.8); opacity: 0.2; }
+        70% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // CONFETTI
+    function triggerConfetti() {
+      for (let i=0; i<80; i++) {
+        setTimeout(()=>spawnConfetti(), i*18);
+      }
+    }
+    function spawnConfetti() {
+      const colors = ['#a259c1', '#cda4de', '#fc95b8', '#24a7e5', '#fff', '#f85e89'];
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.left = (Math.random()*100) + "vw";
+      c.style.top = "-20px";
+      c.style.opacity = Math.random()*0.7+0.3;
+      document.getElementById('confetti').appendChild(c);
+      let y = -20, angle = Math.random()*360, spin = (Math.random()-0.5)*6;
+      const duration = Math.random()*700+1200;
+      const interval = setInterval(()=>{
+        y += 5 + Math.random()*4;
+        angle += spin;
+        c.style.top = y+"px";
+        c.style.transform = `rotate(${angle}deg)`;
+        if (y > window.innerHeight+40) {
+          clearInterval(interval);
+          c.remove();
+        }
+      }, duration/50);
+    }
+
+    // MUSIC BUTTON
     const musicBtn = document.getElementById('musicBtn');
     const music = document.getElementById('birthdayMusic');
     let isPlaying = false;
@@ -310,47 +607,89 @@
       isPlaying = !isPlaying;
     });
 
-    // Animated cats with messages
-    const catImgs = document.querySelectorAll('.cat-img');
-    const catMessage = document.getElementById('catMessage');
-    catImgs.forEach(cat => {
-      cat.addEventListener('click', function() {
-        const msg = cat.getAttribute('data-message');
-        catMessage.textContent = msg;
-        catMessage.style.animation = "none";
-        void catMessage.offsetWidth; // trigger reflow
-        catMessage.style.animation = "popIn 0.4s";
+    // GALLERY PAGE
+    const galleryImages = [
+      {src: "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", caption: "Cat Love"},
+      {src: "https://pngimg.com/d/strawberry_PNG2586.png", caption: "Strawberry"},
+      {src: "https://pngimg.com/d/lilac_PNG79.png", caption: "Lilac Flower"},
+      {src: "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif", caption: "Silly Cat"},
+      {src: "https://pngimg.com/d/teddy_bear_PNG41.png", caption: "Teddy Bear"},
+      {src: "https://pngimg.com/d/balloons_PNG4953.png", caption: "Birthday Balloons"},
+      {src: "https://pngimg.com/d/snowflake_PNG7582.png", caption: "Elsa's Snowflake"},
+      {src: "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif", caption: "Cute Cat"},
+      {src: "https://media.giphy.com/media/6VoDJzfRjJNbG/giphy.gif", caption: "Sleepy Cat"},
+      {src: "https://media.giphy.com/media/lJNoBCvQYp7nq/giphy.gif", caption: "Kitten Yawn"},
+    ];
+    function renderGallery() {
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '';
+      galleryImages.forEach(img => {
+        const div = document.createElement('div');
+        div.className = "gallery-item";
+        div.innerHTML = `<img src="${img.src}" alt="${img.caption}"><div class="gallery-caption">${img.caption}</div>`;
+        grid.appendChild(div);
       });
-    });
+    }
+    renderGallery();
 
-    // Animations for cat message
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes popIn {
-        0% { transform: scale(0.8); opacity: 0.2; }
-        70% { transform: scale(1.2); opacity: 1; }
-        100% { transform: scale(1); }
-      }
-    `;
-    document.head.appendChild(style);
+    // WISHES PAGE
+    const wishes = [
+      "Wishing you a magical birthday, Bethany! 💜",
+      "May your year be as beautiful as lilac flowers and as sweet as strawberries.",
+      "You're my favorite person in the world. Happy Birthday, Bethany!",
+      "Let it snow, let it glow—your smile lights up every room. ❄️",
+      "I love you to Arendelle and back!",
+      "Hope your day is filled with love, laughter, and cats!",
+      "Bethany, you make every day brighter.",
+      "Happy Birthday, prettiest girl! 💖",
+    ];
+    function renderWishes() {
+      const w = document.getElementById('wishesList');
+      w.innerHTML = '';
+      wishes.forEach(msg => {
+        const d = document.createElement('div');
+        d.className = "wish-card";
+        d.textContent = msg;
+        w.appendChild(d);
+      });
+    }
+    renderWishes();
 
-    // Drawing pad logic
+    // Compliment generator
+    const compliments = [
+      "Bethany, you are perfect, mine, and pretty! 😘",
+      "Your smile is my favorite sight.",
+      "You’re as lovely as a lilac in bloom.",
+      "You are my sunshine, Bethany.",
+      "You are the Elsa to my Anna—magical and strong!",
+      "You make life sweeter than strawberries.",
+      "You are the best gift life ever gave me.",
+      "You're pawsitively purrfect.",
+      "STRAT: Secret word found! 😉",
+    ];
+    document.getElementById('complimentBtn').onclick = () => {
+      const msg = compliments[Math.floor(Math.random()*compliments.length)];
+      const box = document.getElementById('complimentMsg');
+      box.textContent = msg;
+      box.style.animation = "none";
+      void box.offsetWidth;
+      box.style.animation = "popIn 0.5s";
+    };
+
+    // DRAWING PAD
     const canvas = document.getElementById('drawingPad');
     const ctx = canvas.getContext('2d');
     let drawing = false, lastX = 0, lastY = 0;
 
     function resizeCanvas() {
-      // Save current drawing
       const data = canvas.toDataURL();
       canvas.width = Math.min(window.innerWidth * 0.95, 360);
       canvas.height = window.innerWidth < 700 ? 140 : 180;
-      // Restore drawing
       const img = new window.Image();
-      img.onload = function() { ctx.drawImage(img, 0, 0, canvas.width, canvas.height); };
+      img.onload = function() { ctx.drawImage(img, 0, 0, canvas.width, canvas.height); }
       img.src = data;
     }
     resizeCanvas();
-
     window.addEventListener('resize', resizeCanvas);
 
     function getPos(e) {
@@ -366,7 +705,6 @@
         };
       }
     }
-
     canvas.addEventListener('mousedown', (e) => {
       drawing = true;
       const pos = getPos(e);
@@ -377,11 +715,10 @@
       const pos = getPos(e);
       [lastX, lastY] = [pos.x, pos.y];
     });
+    canvas.addEventListener('mousemove', drawLine);
+    canvas.addEventListener('touchmove', drawLine);
 
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('touchmove', draw);
-
-    function draw(e) {
+    function drawLine(e) {
       if (!drawing) return;
       e.preventDefault();
       ctx.strokeStyle = "#a259c1";
@@ -394,14 +731,43 @@
       ctx.stroke();
       [lastX, lastY] = [pos.x, pos.y];
     }
-
     canvas.addEventListener('mouseup', () => drawing = false);
     canvas.addEventListener('touchend', () => drawing = false);
     canvas.addEventListener('mouseleave', () => drawing = false);
 
-    window.clearDrawing = function() {
+    function clearDrawing() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+    window.clearDrawing = clearDrawing;
+
+    // GIFT UNWRAPPING
+    const giftBox = document.getElementById('giftBox');
+    const giftLid = giftBox.querySelector('.gift-lid');
+    const giftMsg = document.getElementById('giftMessage');
+    let giftOpened = false;
+    giftBox.onclick = function() {
+      if (giftOpened) return;
+      giftOpened = true;
+      giftLid.classList.add('gift-opened');
+      setTimeout(()=>{
+        giftMsg.textContent = "Bethany, you are the best gift I could ever wish for! 🎁💜";
+        giftMsg.classList.add('open');
+      }, 650);
+    };
+
+    // FIREFLIES BACKGROUND
+    function spawnFirefly() {
+      const f = document.createElement('div');
+      f.className = 'firefly';
+      f.style.left = (Math.random()*100) + "vw";
+      f.style.top = (Math.random()*100) + "vh";
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(), 13000);
+    }
+    setInterval(spawnFirefly, 1800);
+    for(let i=0;i<9;i++) spawnFirefly();
+
+   
   </script>
 </body>
 </html>
