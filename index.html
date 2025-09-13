@@ -398,7 +398,6 @@
     <div id="catRain" class="cat-rain"></div>
     <!-- Fireflies background -->
     <div id="fireflies"></div>
-    <div id="confetti"></div>
     <div class="gift-box" id="giftBox" title="Open me!">
       <div class="gift-lid"></div>
       <div class="gift-ribbon"></div>
@@ -727,17 +726,6 @@
       }, 650);
     };
 
-    // FIREFLIES BACKGROUND
-    function spawnFirefly() {
-      const f = document.createElement('div');
-      f.className = 'firefly';
-      f.style.left = (Math.random()*100) + "vw";
-      f.style.top = (Math.random()*100) + "vh";
-      document.body.appendChild(f);
-      setTimeout(()=>f.remove(), 13000);
-    }
-    setInterval(spawnFirefly, 1800);
-    for(let i=0;i<9;i++) spawnFirefly();
 
    
   </script>
