@@ -398,6 +398,7 @@
     <div id="catRain" class="cat-rain"></div>
     <!-- Fireflies background -->
     <div id="fireflies"></div>
+    <div id="confetti"></div>
     <div class="gift-box" id="giftBox" title="Open me!">
       <div class="gift-lid"></div>
       <div class="gift-ribbon"></div>
@@ -464,7 +465,7 @@
 
     // COUNTDOWN
     function updateCountdown() {
-      const targetDate = new Date(Date.UTC(2025, 8, 13, 16, 0, 0)); // 2025-14-14 00:00:00 MYT == 2025-14-13 16:00:00 UTC
+      const targetDate = new Date(Date.UTC(2025, 8, 13, 16, 0, 0)); // 2025-09-14 00:00:00 MYT == 2025-09-13 16:00:00 UTC
       const now = new Date();
       const diff = targetDate - now;
       if (diff <= 0) {
@@ -560,8 +561,7 @@
         100% { transform: scale(1); }
       }
     `;
-    document.head.appendChild(style);
-
+    document.head.appendChild(s
 
     // MUSIC BUTTON
     const musicBtn = document.getElementById('musicBtn');
@@ -636,7 +636,7 @@
       "You make life sweeter than strawberries.",
       "You are the best gift life ever gave me.",
       "You're pawsitively purrfect.",
-         
+      "STRAT: Secret word found! 😉",
     ];
     document.getElementById('complimentBtn').onclick = () => {
       const msg = compliments[Math.floor(Math.random()*compliments.length)];
@@ -726,8 +726,19 @@
       }, 650);
     };
 
+    // FIREFLIES BACKGROUND
+    function spawnFirefly() {
+      const f = document.createElement('div');
+      f.className = 'firefly';
+      f.style.left = (Math.random()*100) + "vw";
+      f.style.top = (Math.random()*100) + "vh";
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(), 13000);
+    }
+    setInterval(spawnFirefly, 1800);
+    for(let i=0;i<9;i++) spawnFirefly();
 
-   
+  
   </script>
 </body>
 </html>
