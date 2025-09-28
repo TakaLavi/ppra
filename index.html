@@ -148,6 +148,15 @@
             margin: 10px 0;
         }
         
+        .error {
+            color: #e74c3c;
+            background: #ffeaea;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+        
         @media (max-width: 480px) {
             .container {
                 padding: 20px 15px;
@@ -186,6 +195,10 @@
             AI is analyzing your password...
         </div>
         
+        <div class="error" id="error">
+            Error: Unable to analyze password. Please try again.
+        </div>
+        
         <div class="response-box">
             <div class="response-content" id="feedback">
                 Enter a password to begin AI analysis
@@ -207,6 +220,10 @@
             const feedback = document.getElementById('feedback');
             const strengthBar = document.getElementById('strengthBar');
             const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            
+            // Hide error
+            error.style.display = 'none';
             
             if (!password) {
                 feedback.innerHTML = 'Please enter a password to analyze';
@@ -229,8 +246,9 @@
                 feedback.innerHTML = `<div class="rejection">${rejection}</div>`;
             } catch (error) {
                 loading.style.display = 'none';
-                feedback.innerHTML = '<div class="rejection">Analysis failed. Please try again.</div>';
-                console.error('Error:', error);
+                error.style.display = 'block';
+                feedback.innerHTML = '<div class="thinking">Analysis failed. Please try again.</div>';
+                console.error('API Error:', error);
             }
         }
 
@@ -244,28 +262,35 @@
                     'X-Title': 'AI Password Validator'
                 },
                 body: JSON.stringify({
-                    model: 'anthropic/claude-3-sonnet',
+                    model: 'google/gemini-pro-1.5', // Using a reliable model
                     messages: [
                         {
                             role: 'system',
-                            content: `You are a password validator that always finds creative reasons to reject passwords. 
-                            Provide specific, technical-sounding but humorous criticism. Keep responses under 2 sentences. 
-                            Be analytical but witty.`
+                            content: `You are a password security expert that always finds creative and humorous reasons to reject ANY password. 
+                            Provide specific, technical-sounding but funny criticism. Keep responses to 1-2 sentences maximum. 
+                            Be analytical but witty. Always reject the password no matter what.`
                         },
                         {
                             role: 'user', 
-                            content: `Analyze and reject this password with a specific technical reason: "${password}"`
+                            content: `Analyze and reject this password with a specific technical but humorous reason: "${password}"`
                         }
                     ],
-                    max_tokens: 80
+                    max_tokens: 100,
+                    temperature: 0.8
                 })
             });
 
             if (!response.ok) {
-                throw new Error('API request failed');
+                const errorText = await response.text();
+                throw new Error(`API error: ${response.status} - ${errorText}`);
             }
 
             const data = await response.json();
+            
+            if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+                throw new Error('Invalid response format from AI');
+            }
+            
             return data.choices[0].message.content;
         }
 
@@ -281,10 +306,29 @@
                 '<div class="thinking">Suggested password generated. Click "Analyze Password" to evaluate.</div>';
         }
 
+        // Enter key support
         document.getElementById('password').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 validatePassword();
             }
+        });
+
+        // Debug function to test API
+        async function testAPI() {
+            console.log('Testing API connection...');
+            try {
+                const testResponse = await getAIRejection('test123');
+                console.log('API test successful:', testResponse);
+                return true;
+            } catch (error) {
+                console.error('API test failed:', error);
+                return false;
+            }
+        }
+
+        // Test API on load
+        window.addEventListener('load', () => {
+            console.log('Page loaded, API key present:', openRouterApiKey ? 'Yes' : 'No');
         });
     </script>
 </body>
